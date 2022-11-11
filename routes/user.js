@@ -1,22 +1,7 @@
 const { Router } = require("express");
-const { Show } = require("../models");
+const { Show, User } = require("../models");
 const userRouter = Router();
-const { User } = require("../models/User");
-
-function getTitles(array) {
-    list = ""
-    for (i in array) {
-        if (i == 0) {
-            list+=array[i].title
-        }
-        else if (i == array.length-1) {
-            list+=` and ${array[i].title}`
-        } else {
-            list+= `, ${array[i].title}`
-        }
-    }
-    return list
-}
+const getTitles = require("../src/functions")
 
 userRouter.get("/", async (req, res) => {
   res.send(await User.findAll());
