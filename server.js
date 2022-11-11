@@ -2,15 +2,18 @@ const express = require("express")
 const app = express()
 const userRouter = require("./routes/user")
 const showRouter = require("./routes/show")
-const db = require("./db/db")
 
 app.use(express.json())
 
-app.use("/user", userRouter)
-app.use("/showRouter", showRouter)
+app.use("/users", userRouter)
+app.use("/shows", showRouter)
 
-app.get("/sync", async (req, res) => {
-    await db.sync({force: true})
+// app.get("/sync", async (req, res) => {
+//     await db.sync({force: true})
+//     res.sendStatus(200)
+// })
+
+app.get("/", (req, res) => {
     res.sendStatus(200)
 })
 
