@@ -1,8 +1,7 @@
 const { Router } = require("express")
 const showRouter = Router()
-const { Show, User } = require("../models");
-const Sequelize = require("sequelize")
-const getTitles = require("../src/functions")
+const { Show } = require("../models");
+const getTitles = require("../functions")
 
 function reformat(word) {
     return word.charAt(0).toUpperCase() + word.slice(1)
@@ -26,9 +25,8 @@ showRouter.get("/genre/:genre", async (req, res) => {
 })
 
 showRouter.put("/:showId/updaterating/:newRating", async (req, res) => {
-    const showId = req.params.showId
     const newRating = req.params.newRating
-    const show = await Show.findByPk(showId)
+    const show = await Show.findByPk(req.params.showId)
     await show.update({ rating: newRating })
     res.send(`${show.title}'s rating has been updated to ${newRating}!`)
 })

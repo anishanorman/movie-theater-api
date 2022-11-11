@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { Show, User } = require("../models");
 const userRouter = Router();
-const getTitles = require("../src/functions")
+const getTitles = require("../functions")
 
 userRouter.get("/", async (req, res) => {
   res.send(await User.findAll());
