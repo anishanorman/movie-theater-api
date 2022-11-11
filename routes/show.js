@@ -25,4 +25,16 @@ showRouter.get("/genre/:genre", async (req, res) => {
     res.send(`Shows with the genre ${genre}: ${getTitles(shows)}`)
 })
 
+showRouter.put("/:showId/update/status", async (req, res) => {
+    const showId = req.params.showId
+    const show = await Show.findByPk(showId)
+    if (show.status === "cancelled") {
+        await show.update({ status: "on-going" })
+        res.send(`${show.title}'s status has been set to on-going!`)
+    } else {
+        await show.update({ status: "cancelled" })
+        res.send(`${show.title}'s status has been set to cancelled!`)
+    }
+})
+
 module.exports = showRouter
