@@ -45,4 +45,10 @@ showRouter.put("/:showId/updatestatus", async (req, res) => {
     }
 })
 
+showRouter.delete("/:showId/delete", async (req, res) => {
+    const show = await Show.findByPk(req.params.showId)
+    await show.destroy()
+    res.send(`${show.title} has now been deleted from the database. Bye, ${show.title}!`)
+})
+
 module.exports = showRouter
