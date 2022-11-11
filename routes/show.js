@@ -25,7 +25,15 @@ showRouter.get("/genre/:genre", async (req, res) => {
     res.send(`Shows with the genre ${genre}: ${getTitles(shows)}`)
 })
 
-showRouter.put("/:showId/update/status", async (req, res) => {
+showRouter.put("/:showId/updaterating/:newRating", async (req, res) => {
+    const showId = req.params.showId
+    const newRating = req.params.newRating
+    const show = await Show.findByPk(showId)
+    await show.update({ rating: newRating })
+    res.send(`${show.title}'s rating has been updated to ${newRating}!`)
+})
+
+showRouter.put("/:showId/updatestatus", async (req, res) => {
     const showId = req.params.showId
     const show = await Show.findByPk(showId)
     if (show.status === "cancelled") {
